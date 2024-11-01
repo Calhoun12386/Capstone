@@ -68,3 +68,4 @@ export const registerUser = async (username, password) => {
     const result = await response.json();
     return result.token; // Return the JWT token
 };
+

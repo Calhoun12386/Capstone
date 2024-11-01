@@ -21,6 +21,8 @@ const createTables = async () => {
     CREATE TABLE books (
       id UUID PRIMARY KEY,
       title VARCHAR(255) UNIQUE NOT NULL,
+      author VARCHAR(255) NOT NULL,
+      picture_url TEXT,
       description TEXT,
       category VARCHAR(255)
     );
@@ -105,9 +107,9 @@ const fetchUsers = async () => {
 };
 
 // Function to create a new book
-const createBook = async ({ title, description, category }) => {
-    const SQL = 'INSERT INTO books (id, title, description, category) VALUES ($1, $2, $3, $4) RETURNING *';
-    const response = await client.query(SQL, [uuid.v4(), title, description, category]);
+const createBook = async ({ title, author, picture_url, description, category }) => {
+    const SQL = 'INSERT INTO books (id, title, author, picture_url, description, category) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *';
+    const response = await client.query(SQL, [uuid.v4(), title, author, picture_url, description, category]);
     return response.rows[0];
 };
 // Function to fetch all products
