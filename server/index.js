@@ -217,10 +217,10 @@ const seedDatabase = async () => {
      
     ];
     const books = [
-        { title: "book1" },
-        { title: "book2" },
-        { title: "book3" },
-        { title: "book4" },
+        { title: "book1", author: "Author 1", picture_url: "https://www.jdandj.com/uploads/8/0/0/8/80083458/s611371146998849390_p329_i1_w1600.jpeg" },
+        { title: "book2", author: "Author 2", picture_url: "https://www.jdandj.com/uploads/8/0/0/8/80083458/s611371146998849390_p329_i1_w1600.jpeg" },
+        { title: "book3", author: "Author 3", picture_url: "https://www.jdandj.com/uploads/8/0/0/8/80083458/s611371146998849390_p329_i1_w1600.jpeg" },
+        { title: "book4", author: "Author 4", picture_url: "https://www.jdandj.com/uploads/8/0/0/8/80083458/s611371146998849390_p329_i1_w1600.jpeg" },
      
     ];
     await Promise.all(users.map(user => createUser(user)));

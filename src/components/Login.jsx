@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../API/api'; 
 
 export default function Login({ setToken }) {
@@ -41,6 +41,9 @@ export default function Login({ setToken }) {
         <br />
         <button type="submit">Login</button>
       </form>
+      <p>
+        Don't have an account? <Link to="/Register">Create an account</Link>
+      </p>
     </div>
   );
 }

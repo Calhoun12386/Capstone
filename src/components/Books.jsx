@@ -1,26 +1,28 @@
 // components/Books.js
 import React, { useEffect, useState } from 'react';
-import { fetchBooks } from '../API/api'; // Import the API call
+import {Link} from "react-router-dom"
+import { fetchBooks } from '../API/api';
+
 
 const Books = () => {
-    const [books, setBooks] = useState([]); // State to store books
-    const [error, setError] = useState(null); // State to handle errors
+    const [books, setBooks] = useState([]); 
+    const [error, setError] = useState(null); 
 
     useEffect(() => {
         const getBooks = async () => {
             try {
-                const booksData = await fetchBooks(); // Call the fetchBooks API
-                setBooks(booksData); // Update state with fetched books
+                const booksData = await fetchBooks(); 
+                setBooks(booksData); 
             } catch (error) {
-                setError(error.message); // Set error if fetching fails
+                setError(error.message); 
             }
         };
 
-        getBooks(); // Call the function to fetch books
-    }, []); // Empty dependency array to run on component mount
+        getBooks(); 
+    }, []); 
 
     if (error) {
-        return <div>Error: {error}</div>; // Render error message if any
+        return <div>Error: {error}</div>; 
     }
 
     return (
@@ -28,7 +30,19 @@ const Books = () => {
             <h1>Books List</h1>
             <ul>
                 {books.map((book) => (
-                    <li key={book.id}>{book.title}</li> // Render list of book titles
+                    <li key={book.id}>
+                        <Link to={`/Books/${book.id}`}> {/* Link to the SingleBook component */}
+                            <h2>{book.title}</h2> 
+                            <p>Author: {book.author}</p> 
+                            {book.picture_url && (
+                                <img
+                                    src={book.picture_url}
+                                    alt={book.title}
+                                    style={{ width: '100px', height: '150px', cursor: 'pointer' }} // Add cursor pointer
+                                />
+                            )}
+                        </Link>
+                    </li>
                 ))}
             </ul>
         </div>
