@@ -15,6 +15,84 @@ export const fetchBooks = async () => {
     }
 };
 
+//TO DO - SS
+export const fetchSingleBook = async (id) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/books/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch books');
+        }
+        const data = await response.json();
+        return data; // Return the array of books
+    } catch (error) {
+        console.error('Error fetching books:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
+
+//TO DO - SS
+export const fetchSingleBookReview = async (id) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/books/${id}/reviews`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch reviews');
+        }
+        const data = await response.json();
+        return data; // Return the array of reviews
+    } catch (error) {
+        console.error('Error fetching reviews:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
+
+//TO DO - SS
+export const createSingleBookReview = async (id) => {
+    try {
+        const response = await post(`${API_BASE_URL}/books/${id}/reviews`);
+        if (!response.ok) {
+            throw new Error('Failed to create reviews');
+        }
+        const data = await response.json();
+        return data; // Return the array of reviews
+    } catch (error) {
+        console.error('Error creating reviews:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
+
+
+//TO DO - SS
+export const updateSingleBookReview = async (id) => {
+    try {
+        const response = await put(`${API_BASE_URL}/reviews/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to update reviews');
+        }
+        const data = await response.json();
+        return data; // Return the array of reviews
+    } catch (error) {
+        console.error('Error updating reviews:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
+
+//TO DO - SS
+export const deleteSingleBookReview = async (id) => {
+    try {
+        const response = await delete(`${API_BASE_URL}/reviews/${id}`);
+        if (!response.ok) {
+            throw new Error('Failed to delete reviews');
+        }
+        const data = await response.json();
+        return data; // Return the array of reviews
+    } catch (error) {
+        console.error('Error deleting reviews:', error);
+        throw error; // Rethrow the error for handling in the component
+    }
+};
+
+
+
 // Function to log in the user
 export const loginUser = async (username, password) => {
     const postHelper = {
