@@ -16,7 +16,7 @@ export default function Router() {
         <Route path="/Books" element={<Books/>}></Route>
         <Route path="/Login" element={<Login setToken={setToken}/>}></Route>
         <Route path="/Register" element={<Register setToken={setToken}/>}></Route>
-        <Route path="/Books/:id" element={<SingleBook />}></Route>
+        <Route path="/Books/:id" element={<SingleBook token={token} />}></Route>
       </Routes>
     </div>
   );

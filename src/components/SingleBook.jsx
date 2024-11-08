@@ -1,51 +1,80 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import ReviewForm from "./ReviewForm";
+import ReviewList from "./ReviewList";
+import "../index.css";
+import { fetchSingleBook, fetchSingleBookReview } from "../API/api";
 
-
-/* TODO - add your code to create a functional React component that renders details for a single book. Fetch the book data from the provided API. You may consider conditionally rendering a 'Checkout' button for logged in users. */
-
-import React from "react";
-import { useEffect, useState } from "react";
-import {useParams} from 'react-router-dom';
-
-// Import the CSS styles for this component
-import '../index.css';
-import { fetchSingleBook } from '../API/api';
-
-
-// Define a new React component
-const SingleBook = () => {
+const SingleBook = ({ token }) => {
   const [singleBook, setSingleBook] = useState(null);
+  const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true); // Loading state
   let { id } = useParams();
 
-  
+  // Fetch book and reviews data on component mount or when id changes
   useEffect(() => {
-    async function fetchBook() {
-        
-        try {
-            const booksData = await fetchSingleBook(id); 
-            setSingleBook(booksData); 
-        } catch (error) {
-            setError(error.message); 
-        }
+    async function fetchData() {
+      try {
+        const bookData = await fetchSingleBook(id);
+        const reviewsData = await fetchSingleBookReview(id);
+        setSingleBook(bookData);
+        setReviews(reviewsData);
+      } catch (error) {
+        setError(error.message || "Failed to fetch data");
+      } finally {
+        setIsLoading(false);
       }
-      fetchBook();
-  }, []);
+    }
 
+    fetchData();
+  }, [id]);
 
-  // Show the fetched data after it has arrived
+  const handleNewReview = async (newReview) => {
+    try {
+      setReviews((prevReviews) => [newReview, ...prevReviews]); // Optimistic update
+      //console.log("New Review added:", newReview);  // Log the new review
+  
+      // Refetch the reviews
+      //const reviewsData = await fetchSingleBookReview(id);
+      //console.log("Fetched reviews:", reviewsData);  // Log the fetched reviews
+      //setReviews(reviewsData);
+    } catch (error) {
+      setError("Failed to update reviews");
+    }
+  };
+
+  if (isLoading) return <p>Loading...</p>;
+
   return (
     <div className="singleBook">
-      
-          {/* {book.coverimage} alt="book.name" */}
-          
-          <div className="book-details">
-            <h2> {singleBook?.title} </h2> 
-            <p>  {singleBook?.author} </p> 
-            <p> {singleBook?.description} </p>
-          </div>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+      <div className="book-details">
+        <h2>{singleBook?.title}</h2>
+        <p>{singleBook?.author}</p>
+        <p>{singleBook?.description}</p>
+        {singleBook?.picture_url && (
+          <img
+            src={singleBook.picture_url}
+            alt={`${singleBook.title} cover`}
+            style={{
+              width: "150px",
+              height: "auto",
+              borderRadius: "8px",
+              marginTop: "10px",
+            }}
+          />
+        )}
+      </div>
+
+      {/* Conditionally render the ReviewForm if token exists */}
+      {token && <ReviewForm bookId={id} token={token} onNewReview={handleNewReview} />}
+
+      {/* Render reviews list */}
+      <ReviewList reviews={reviews}  />
     </div>
   );
 };
 
-// Export the component so it can be imported and used in other files
-export default  SingleBook;
+export default SingleBook;
