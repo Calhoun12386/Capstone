@@ -46,19 +46,29 @@ export const fetchSingleBookReview = async (id) => {
 };
 
 //TO DO - SS
-export const createSingleBookReview = async (id) => {
+export const createReview = async (bookId, rating, reviewText, token) => {
     try {
-        const response = await post(`${API_BASE_URL}/books/${id}/reviews`);
-        if (!response.ok) {
-            throw new Error('Failed to create reviews');
-        }
-        const data = await response.json();
-        return data; // Return the array of reviews
+        //console.log(token)
+      const response = await fetch(`${API_BASE_URL}/books/${bookId}/reviews`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization':  token, // Add the token for authentication
+        },
+        body: JSON.stringify({ rating, reviewText }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Failed to create review');
+      }
+  
+      const result = await response.json();
+      return result;
     } catch (error) {
-        console.error('Error creating reviews:', error);
-        throw error; // Rethrow the error for handling in the component
+      console.error('Error creating review:', error);
+      throw error;
     }
-};
+  };
 
 
 //TO DO - SS

@@ -9,7 +9,8 @@ const app = express();
 // CORS Middleware
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Allow your React app's origin
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allow Authorization header
+    res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow necessary methods
     next();
 });
 
