@@ -30,7 +30,7 @@ export const fetchSingleBook = async (id) => {
     }
 };
 
-//TO DO - SS
+
 export const fetchSingleBookReview = async (id) => {
     try {
         const response = await fetch(`${API_BASE_URL}/books/${id}/reviews`);
@@ -45,7 +45,7 @@ export const fetchSingleBookReview = async (id) => {
     }
 };
 
-//TO DO - SS
+
 export const createReview = async (bookId, rating, reviewText, token) => {
     try {
         //console.log(token)
@@ -71,35 +71,38 @@ export const createReview = async (bookId, rating, reviewText, token) => {
   };
 
 
-//TO DO - SS
-export const updateSingleBookReview = async (id) => {
-    try {
-        const response = await put(`${API_BASE_URL}/reviews/${id}`);
-        if (!response.ok) {
-            throw new Error('Failed to update reviews');
-        }
-        const data = await response.json();
-        return data; // Return the array of reviews
-    } catch (error) {
-        console.error('Error updating reviews:', error);
-        throw error; // Rethrow the error for handling in the component
-    }
-};
+export const updateReview = async (reviewId, rating, reviewText, token) => {
+    const response = await fetch(`${API_BASE_URL}/reviews/${reviewId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": token,
+      },
+      body: JSON.stringify({ rating, reviewText }),
+    });
+    if (!response.ok) throw new Error("Failed to update review");
+    return response.json();
+  };
 
-//TO DO - SS
-export const deleteSingleBookReview = async (id) => {
+  export const deleteReview = async (reviewId, token) => {
     try {
-        const response = await delete(`${API_BASE_URL}/reviews/${id}`);
-        if (!response.ok) {
-            throw new Error('Failed to delete reviews');
-        }
-        const data = await response.json();
-        return data; // Return the array of reviews
+      const response = await fetch(`${API_BASE_URL}/reviews/${reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          "Authorization": token,  // Send the token for authorization
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to delete review: ${response.statusText}`);
+      }
+  
+      return response.status;  // Return the status for confirmation (204 if successful)
     } catch (error) {
-        console.error('Error deleting reviews:', error);
-        throw error; // Rethrow the error for handling in the component
+      console.error("Error in deleteReview:", error);
+      throw error;
     }
-};
+  };
 
 
 
