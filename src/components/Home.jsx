@@ -1,5 +1,5 @@
 import Books from "../components/Books"
-import "../css/Home.css";  
+import "../CSS/home.css";  
 
 export default function Home() {
   
