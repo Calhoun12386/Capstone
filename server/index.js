@@ -5,10 +5,11 @@ const { client, createTables,createUser, fetchUsers, createBook, fetchBooks, aut
 
 const express = require("express");
 const app = express();
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 // CORS Middleware
 app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', 'http://localhost:5173'); // Allow your React app's origin
+    res.header('Access-Control-Allow-Origin', FRONTEND_URL); // Allow your React app's origin
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization'); // Allow Authorization header
     res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS'); // Allow necessary methods
     if (req.method === 'OPTIONS') {
