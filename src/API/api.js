@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api'; 
+const API_BASE_URL = process.env.API_URL || 'http://localhost:3000/api';
 
 // Function to fetch all books
 export const fetchBooks = async () => {
