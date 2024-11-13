@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import {Link} from "react-router-dom"
 import { fetchBooks } from '../API/api';
+import "../CSS/books.css"
 
 
 const Books = () => {

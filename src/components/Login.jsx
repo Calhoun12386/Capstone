@@ -14,7 +14,7 @@ export default function Login({ setToken }) {
     try {
       const token = await loginUser(username, password); 
       setToken(token); // Store the token 
-      navigate('/'); 
+      navigate('/Books'); 
     } catch (error) {
       setError(error.message || 'Something went wrong.');
     }
