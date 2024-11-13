@@ -4,7 +4,7 @@ import {jwtDecode} from 'jwt-decode';
 import ReviewForm from "./ReviewForm";
 import ReviewList from "./ReviewList";
 import ReviewEdit from "./ReviewEdit";
-import "../index.css";
+//import "../CSS/singleBook.css"
 import { fetchSingleBook, fetchSingleBookReview, updateReview, deleteReview } from "../API/api";
 
 
@@ -115,12 +115,12 @@ const SingleBook = ({ token }) => {
           <img
             src={singleBook.picture_url}
             alt={`${singleBook.title} cover`}
-            style={{
+            /* style={{
               width: "150px",
               height: "auto",
               borderRadius: "8px",
               marginTop: "10px",
-            }}
+            }} */
           />
         )}
       </div>

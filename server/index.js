@@ -217,7 +217,7 @@ const seedDatabase = async () => {
     const users = [
         { username: "steven", password: "stevenpw" },
         { username: "doaa", password: "doaapw" },
-        { username: "connor", password: "connorpw" },
+        { username: "simi", password: "simipw" },
      
     ];
     const books = [

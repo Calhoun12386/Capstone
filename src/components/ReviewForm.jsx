@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createReview } from "../API/api"; // Import the createReview function
+import "../CSS/reviewForm.css"
 
 const ReviewForm = ({ bookId, token, onNewReview }) => {
   const [rating, setRating] = useState("");
@@ -27,9 +28,9 @@ const ReviewForm = ({ bookId, token, onNewReview }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="review-form">
       <h2>Write a Review</h2>
-      <div>
+      <div className="form-group">
         <label>
           Rating:
           <input
@@ -42,7 +43,7 @@ const ReviewForm = ({ bookId, token, onNewReview }) => {
           />
         </label>
       </div>
-      <div>
+      <div className="form-group">
         <label>
           Review:
           <textarea
@@ -52,9 +53,9 @@ const ReviewForm = ({ bookId, token, onNewReview }) => {
           />
         </label>
       </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {successMessage && <p style={{ color: "green" }}>{successMessage}</p>}
-      <button type="submit">Submit Review</button>
+      {error && <p className="error-message">{error}</p>}
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      <button type="submit" className="submit-button">Submit Review</button>
     </form>
   );
 };
